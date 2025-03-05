@@ -38,7 +38,7 @@ function App() {
          <Header />
          <MainContent />
          <Footer />.
-         <UserProfile name="John Doe" age={30} bio="I am a software developer." />
+         <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
          <UserProfile name="John soe" age={30} bio="A software developer from Nairobi" />
 
       </div>
