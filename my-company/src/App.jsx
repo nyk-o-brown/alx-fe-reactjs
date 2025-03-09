@@ -10,11 +10,11 @@ import Footer from './Footer';
 import UserProfile from './UserProfile';
 import Counter from './Counter';
 import UserContext from './UserContext';
-import Navbar from './Navbar';
-import About from './About';
-import Contact from './Contact';
-import Services from './Services';
-import Home from './Home';
+import Navbar from './components/Navbar';
+import About from './components/About';
+import Contact from './components/Contact';
+import Services from './components/Services';
+import Home from './components/Home';
 
 function App() {
   const [count, setCount] = useState(0);
