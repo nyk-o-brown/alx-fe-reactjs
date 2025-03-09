@@ -8,9 +8,16 @@ import MainContent from './MainContent';
 import Footer from './Footer';
 import UserProfile from './UserProfile';
 import Counter from './Counter';
+import UserContext from './UserContext';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const userData = {
+    name: 'Alice',
+    age: 25,
+    bio: 'Loves hiking and photography'
+  };
 
   return (
     <>
@@ -38,11 +45,12 @@ function App() {
          <WelcomeMessage />
          <Header />
          <MainContent />
-         <Footer />.
-         <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
-         <UserProfile name="John soe" age={30} bio="A software developer from Nairobi" />
-          <Counter />
-
+         <Footer />
+         <UserContext.Provider value={userData}>
+           <UserProfile />
+           <UserProfile />
+         </UserContext.Provider>
+         <Counter />
       </div>
     </>
   )
