@@ -9,6 +9,7 @@ import Footer from './Footer';
 import UserProfile from './UserProfile';
 import Counter from './Counter';
 import UserContext from './UserContext';
+import Navbar from './Navbar';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -51,12 +52,10 @@ function App() {
            <UserProfile />
          </UserContext.Provider>
          <Counter />
+         <Navbar/>
       </div>
     </>
   )
 }
 
 export default App
-
-
-
