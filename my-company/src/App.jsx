@@ -10,6 +10,7 @@ import UserProfile from './UserProfile';
 import Counter from './Counter';
 import UserContext from './UserContext';
 import Navbar from './Navbar';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [count, setCount] = useState(0);
