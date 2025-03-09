@@ -1,11 +1,10 @@
-// AddRecipeForm component
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRecipeStore } from './recipeStore';
 
 const AddRecipeForm = () => {
-  const addRecipe = useRecipeStore(state => state.addRecipe);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const addRecipe = useRecipeStore(state => state.addRecipe);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,3 +30,5 @@ const AddRecipeForm = () => {
     </form>
   );
 };
+
+export default AddRecipeForm;
