@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
 import WelcomeMessage from './WelcomeMessage';
 import Header from './Header';
 import MainContent from './MainContent';
@@ -10,7 +11,10 @@ import UserProfile from './UserProfile';
 import Counter from './Counter';
 import UserContext from './UserContext';
 import Navbar from './Navbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import About from './About';
+import Contact from './Contact';
+import Services from './Services';
+import Home from './Home';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,7 +26,7 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -43,20 +47,19 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <div>
-         <WelcomeMessage />
-         <Header />
-         <MainContent />
-         <Footer />
-         <UserContext.Provider value={userData}>
-           <UserProfile />
-           <UserProfile />
-         </UserContext.Provider>
-         <Counter />
-         <Navbar/>
-      </div>
-    </>
-  )
+      <UserContext.Provider value={userData}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/counter" element={<Counter />} />
+        </Routes>
+      </UserContext.Provider>
+    </Router>
+  );
 }
 
-export default App
+export default App;
