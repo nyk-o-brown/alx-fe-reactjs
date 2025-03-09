@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import useRecipeStore from '../stores';
 
 const RecipeList = () => {
@@ -44,6 +45,7 @@ const RecipeList = () => {
           <li key={recipe.id}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
+            <Link to={`/recipe/${recipe.id}`} style={{ marginRight: '10px' }}>View Details</Link>
             <button onClick={() => handleUpdate(recipe.id)}>Update</button>
             <button onClick={() => handleDelete(recipe.id)}>Delete</button>
           </li>
