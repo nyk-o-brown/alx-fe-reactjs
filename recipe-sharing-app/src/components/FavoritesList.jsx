@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useRecipeStore from './stores';
+import useRecipeStore from '../stores';
 
 const FavoritesList = () => {
   const { favorites, addFavorite, removeFavorite } = useRecipeStore(state => ({
