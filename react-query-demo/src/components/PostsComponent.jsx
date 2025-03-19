@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
 const fetchPosts = async () => {
@@ -16,6 +16,12 @@ const PostsComponent = () => {
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
+
+  const [showState, setShowState] = useState(false);
+
+  const handleShowState = () => {
+    setShowState(!showState);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -36,6 +42,15 @@ const PostsComponent = () => {
           </li>
         ))}
       </ul>
+      <button onClick={handleShowState} style={{ padding: '10px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '5px' }}>
+        {showState ? 'Hide State' : 'Show State'}
+      </button>
+      {showState && (
+        <div>
+          <h3>App State</h3>
+          <pre>{JSON.stringify({ data, isError, isLoading, error }, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 };
