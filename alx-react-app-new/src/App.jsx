@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './react.svg'
-import viteLogo from '.alx-react-app-new/public/vite.svg'
+import viteLogo from './vite.svg'
 import './App.css'
 import WelcomeMessage from './WelcomeMessage';
 import Header from "./components/Header";
