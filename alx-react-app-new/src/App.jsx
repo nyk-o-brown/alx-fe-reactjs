@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import reactLogo from 'alx-react-app-new/src/react.svg'
-import viteLogo from 'alx-react-app-new/src/vite.svg'
+import reactLogo from './react.svg'
+import viteLogo from './vite.svg'
 import './App.css'
 import WelcomeMessage from './WelcomeMessage';
-import Header from './Header';
-import MainContent from './MainContent';
-import Footer from './Footer';
-import UserProfile from './UserProfile';
-import Counter from './Counter';
+import Header from "./components/Header";
+
+import MainContent from './components/MainContent';
+import Footer from './components/Footer';
+import UserProfile from './components/UserProfile';
+import Counter from './components/Counter';
 import UserContext from './UserContext';
 
 function App() {
