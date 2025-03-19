@@ -17,7 +17,7 @@ const PostsComponent = () => {
   }
 
   if (isError) {
-    return <div>Error: {isError.message}</div>;
+    return <div>error: {isError.message}</div>;
   }
 
   return (
