@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-/*import reactLogo from './assets/react.svg'*/
+import reactLogo from 'alx-react-app-new\src\react.svg'
 import './App.css'
 import WelcomeMessage from './WelcomeMessage';
 import Header from './Header';
