@@ -2,7 +2,7 @@
 
 import React from "react";
 import { render, screen, fireEvent, within } from "@testing-library/react";
-import App from "./App"; // Main component that includes TodoList and AddTodoForm
+import App from "../App"; // Main component that includes TodoList and AddTodoForm
 
 describe("Todo App", () => {
   // Test 1: Initial Render
