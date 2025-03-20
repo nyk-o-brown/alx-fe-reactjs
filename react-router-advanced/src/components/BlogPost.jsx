@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const BlogPost = () => {
-  const { postId } = useParams();
+  const { id } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
       .then((response) => response.json())
       .then((data) => setPost(data));
-  }, [postId]);
+  }, [id]);
 
   if (!post) return <p>Loading...</p>;
 
