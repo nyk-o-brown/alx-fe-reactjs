@@ -1,14 +1,23 @@
 // src/components/BlogPost.jsx
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const BlogPost = () => {
-  const { postId } = useParams(); // Extracts the dynamic part of the URL
+  const { postId } = useParams();
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then((response) => response.json())
+      .then((data) => setPost(data));
+  }, [postId]);
+
+  if (!post) return <p>Loading...</p>;
 
   return (
     <div>
-      <h1>Blog Post {postId}</h1>
-      <p>This is the content for blog post with ID: {postId}.</p>
-      {/* You can fetch and display actual post data here based on the postId */}
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
     </div>
   );
 };
