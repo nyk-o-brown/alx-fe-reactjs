@@ -38,10 +38,10 @@ function App() {
           </p>
           <Routes>
             <Route path="/" element={<h1>Home Page</h1>} />
-            <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}>
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}>
               {/* Nested routes for Profile subsections */}
-              <Route path="details" element={<ProfileDetails />} />
-              <Route path="settings" element={<ProfileSettings />} />
+              <Route path="/profile/details" element={<ProfileDetails />} />
+              <Route path="/profile/settings" element={<ProfileSettings />} />
             </Route>
             <Route path="/blog/:id" element={<BlogPost />} /> {/* Dynamic Route */}
           </Routes>
