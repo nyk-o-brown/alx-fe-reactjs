@@ -2,24 +2,13 @@
 
 import React, { useState } from "react";
 
-// 1. Define a static array of todo items
-const initialTodos = [
-  { id: 1, text: "Buy groceries", completed: false },
-  { id: 2, text: "Walk the dog", completed: true },
-  { id: 3, text: "Clean the house", completed: false }
-];
-
 const AddTodoForm = ({ addTodo }) => {
-  // Local state for the input field
   const [input, setInput] = useState("");
 
-  // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form reload behavior
+    e.preventDefault();
     if (input.trim()) {
-      // Call the parent's addTodo function with trimmed input
       addTodo(input.trim());
-      // Clear the input field after submission
       setInput("");
     }
   };
@@ -37,7 +26,12 @@ const AddTodoForm = ({ addTodo }) => {
   );
 };
 
-// 2. Create a functional component that renders the todo list
+const initialTodos = [
+  { id: 1, text: "Buy groceries", completed: false },
+  { id: 2, text: "Walk the dog", completed: true },
+  { id: 3, text: "Clean the house", completed: false }
+];
+
 const TodoList = () => {
   const [todos, setTodos] = useState(initialTodos);
 
@@ -52,7 +46,6 @@ const TodoList = () => {
       <AddTodoForm addTodo={addTodo} />
       <ul>
         {todos.map((todo) => (
-          // 3. Use the unique 'id' as the key for each list item
           <li key={todo.id}>
             {todo.text}
           </li>
