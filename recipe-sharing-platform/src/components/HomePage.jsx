@@ -25,7 +25,7 @@ function HomePage() {
   }, []); // Empty dependency array means this runs once on mount
 
   if (isLoading) {
-    return <div className="text-center p-4">Loading recipes...</div>;
+    return <div className="text-center p-4 hover:text-red-500">Loading recipes...</div>;
   }
 
   if (error) {
