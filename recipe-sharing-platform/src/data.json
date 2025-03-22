@@ -5,13 +5,52 @@
         "id": 1,
         "title": "Spaghetti Carbonara",
         "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-        "image": "https://via.placeholder.com/150"
+        "image": "https://via.placeholder.com/150",
+        "ingredients": [
+          "400g spaghetti",
+          "200g pancetta or guanciale",
+          "4 large eggs",
+          "100g Pecorino Romano cheese",
+          "100g Parmigiano Reggiano",
+          "2 cloves garlic",
+          "Black pepper",
+          "Salt"
+        ],
+        "instructions": [
+          "Bring a large pot of salted water to boil and cook spaghetti according to package instructions",
+          "While pasta cooks, cut pancetta into small cubes and fry until crispy",
+          "In a bowl, whisk eggs and grated cheeses together",
+          "Drain pasta, reserving some pasta water",
+          "Mix hot pasta with egg mixture and pancetta",
+          "Add pasta water if needed for creaminess",
+          "Season with fresh black pepper and serve immediately"
+        ]
       },
       {
         "id": 2,
         "title": "Chicken Tikka Masala",
         "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-        "image": "https://via.placeholder.com/150"
+        "image": "https://via.placeholder.com/150",
+        "ingredients": [
+          "800g chicken breast",
+          "400ml heavy cream",
+          "400g tomato sauce",
+          "2 onions",
+          "4 garlic cloves",
+          "2 tbsp garam masala",
+          "2 tbsp tandoori masala",
+          "1 tbsp turmeric",
+          "Salt to taste"
+        ],
+        "instructions": [
+          "Marinate chicken in yogurt and spices for 4 hours",
+          "Grill or bake chicken until cooked through",
+          "Sauté onions and garlic until golden",
+          "Add spices and tomato sauce, simmer for 10 minutes",
+          "Add cream and cooked chicken",
+          "Simmer for 15-20 minutes",
+          "Garnish with fresh coriander and serve with naan"
+        ]
       }
     ]
   }
