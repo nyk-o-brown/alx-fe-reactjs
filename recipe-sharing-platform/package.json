@@ -2,7 +2,6 @@
   "name": "recipe-sharing-platform",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +11,8 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "recipe-sharing-platform": "file:"
+    "recipe-sharing-platform": "file:",
+    "tailwind-build": "postcss src/styles/index.css -o src/styles/output.css"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
