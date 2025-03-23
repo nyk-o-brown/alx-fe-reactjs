@@ -34,6 +34,8 @@ function AddRecipeForm() {
   };
 
   const handleChange = (e) => {
+    console.log(e.target.value); 
+    
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -52,6 +54,10 @@ function AddRecipeForm() {
     
     setIsSubmitting(false);
   };
+
+
+  <input type="text" onChange={handleChange} />;
+  
 
   return (
     <div className="max-w-2xl mx-auto p-6">
