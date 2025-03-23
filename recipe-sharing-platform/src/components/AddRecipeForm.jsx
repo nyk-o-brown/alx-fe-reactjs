@@ -35,7 +35,7 @@ function AddRecipeForm() {
 
   const handleChange = (e) => {
     console.log(e.target.value); 
-    
+
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -117,7 +117,7 @@ function AddRecipeForm() {
         {/* Instructions Input */}
         <div>
           <label htmlFor="instructions" className="block text-sm font-medium text-gray-700 mb-1">
-            Instructions (one step per line)
+            steps (one step per line)
           </label>
           <textarea
             id="instructions"
