@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import HomePage from './components/HomePage'
 import RecipeDetail from './components/RecipeDetail'
+import AddRecipeForm from './components/AddRecipeForm'
 import recipeData from './data.json'
 import './index.css'
 
@@ -52,6 +53,12 @@ function App() {
                 >
                   All Recipes
                 </Link>
+                <Link 
+                  to="/add-recipe" 
+                  className="px-3 py-2 rounded-md text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                >
+                  Add Recipe
+                </Link>
               </div>
             </div>
           </div>
@@ -75,6 +82,12 @@ function App() {
                 <RecipeDetail 
                   recipes={recipes}
                 />
+              } 
+            />
+            <Route 
+              path="/add-recipe" 
+              element={
+                <AddRecipeForm />
               } 
             />
           </Routes>
