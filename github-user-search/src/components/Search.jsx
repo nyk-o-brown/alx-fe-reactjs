@@ -69,7 +69,7 @@ const GitHubForm = () => {
       {/* Error State */}
       {error && (
         <div className="text-center py-4">
-          <p className="text-red-500">Looks like we can't find the user</p>
+          <p className="text-red-500">Looks like we can't find the user/"Looks like we cant find the user"</p>
         </div>
       )}
 
