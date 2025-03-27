@@ -6,7 +6,7 @@ const Search = () => {
     username: '',
     location: '',
     followers: '',
-    minrepos: '',
+    minRepos: '',
     language: ''
   });
   const [userData, setUserData] = useState(null);
