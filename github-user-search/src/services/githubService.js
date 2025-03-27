@@ -7,7 +7,7 @@ const searchUsers = async (params) => {
     if (params.username) query.push(params.username);
     if (params.location) query.push(`location:${params.location}`);
     if (params.followers) query.push(`followers:>=${params.followers}`);
-    if (params.repos) query.push(`repos:>=${params.repos}`);
+    if (params.minrepos) query.push(`repos:>=${params.minrepos}`);
     if (params.language) query.push(`language:${params.language}`);
     
     const queryString = encodeURIComponent(query.join(' '));
