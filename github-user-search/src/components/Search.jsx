@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import fetchUserData from '../services/githubService'; // Import the service function
 
 const GitHubForm = () => {
   const [username, setUsername] = useState('');
@@ -6,15 +7,10 @@ const GitHubForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Step 1: Create a piece of state to store the input value.
-  
-
-  // Step 2: Create an event handler for input changes.
   const handleInputChange = (event) => {
     setUsername(event.target.value);
   };
 
-  // Step 3: Create an event handler for form submission.
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -24,11 +20,7 @@ const GitHubForm = () => {
     setUserData(null);
   
     try {
-      const response = await fetch(`https://api.github.com/users/${username}`);
-      if (!response.ok) {
-        throw new Error('User not found');
-      }
-      const data = await response.json();
+      const data = await fetchUserData(username);
       setUserData(data);
     } catch (err) {
       setError(err.message);
