@@ -1,20 +1,31 @@
 import axios from 'axios';
 
-const fetchUserData = async (username) => {
+const searchUsers = async (params) => {
   try {
-    // Make API call using axios
-    const response = await axios.get(`https://api.github.com/users/${username}`);
+    let query = [];
     
-    // Axios automatically throws errors for non-2xx responses
-    // and parses JSON responses, so we can directly return the data
-    console.log("User Data:", response.data);
-    return response.data;
+    if (params.username) query.push(params.username);
+    if (params.location) query.push(`location:${params.location}`);
+    if (params.followers) query.push(`followers:>=${params.followers}`);
+    if (params.repos) query.push(`repos:>=${params.repos}`);
+    if (params.language) query.push(`language:${params.language}`);
     
+    const queryString = encodeURIComponent(query.join(' '));
+    
+    const response = await axios.get(`https://api.github.com/search/users?q=${queryString}`, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    return {
+      users: response.data.items,
+      totalCount: response.data.total_count
+    };
   } catch (error) {
-    // Handle errors - Axios provides detailed error information
-    console.error("Failed to fetch user data:", error.response?.data || error.message);
+    console.error("Failed to search users:", error.response?.data || error.message);
     throw error;
   }
 };
 
-export default fetchUserData;
+export { searchUsers };

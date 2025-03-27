@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
-import fetchUserData from '../services/githubService'; // Import the service function
+import { searchUsers } from '../services/githubService';
 
-const GitHubForm = () => {
-  const [username, setUsername] = useState('');
+const Search = () => {
+  const [searchParams, setSearchParams] = useState({
+    username: '',
+    location: '',
+    followers: '',
+    repos: '',
+    language: ''
+  });
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
-    setUsername(event.target.value);
+    const { name, value } = event.target;
+    setSearchParams(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    // Reset states
     setIsLoading(true);
     setError(null);
     setUserData(null);
-  
+
     try {
-      const data = await fetchUserData(username);
+      const data = await searchUsers(searchParams);
       setUserData(data);
     } catch (err) {
       setError(err.message);
@@ -30,77 +38,134 @@ const GitHubForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Enter GitHub Username</h2>
-      <form onSubmit={handleSubmit} className="mb-8">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            id="github-username"
-            value={username}
-            onChange={handleInputChange}
-            placeholder="Enter GitHub username"
-            className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+    <div className="max-w-4xl mx-auto p-4">
+      <h2 className="text-3xl font-bold mb-6 text-center">GitHub User Search</h2>
+      
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Username Field */}
+          <div className="space-y-2">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={searchParams.username}
+              onChange={handleInputChange}
+              placeholder="Enter GitHub username"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Location Field */}
+          <div className="space-y-2">
+            <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+              Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={searchParams.location}
+              onChange={handleInputChange}
+              placeholder="e.g., San Francisco"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Min Followers Field */}
+          <div className="space-y-2">
+            <label htmlFor="followers" className="block text-sm font-medium text-gray-700">
+              Minimum Followers
+            </label>
+            <input
+              type="number"
+              id="followers"
+              name="followers"
+              value={searchParams.followers}
+              onChange={handleInputChange}
+              min="0"
+              placeholder="e.g., 100"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Programming Language Field */}
+          <div className="space-y-2">
+            <label htmlFor="language" className="block text-sm font-medium text-gray-700">
+              Primary Language
+            </label>
+            <input
+              type="text"
+              id="language"
+              name="language"
+              value={searchParams.language}
+              onChange={handleInputChange}
+              placeholder="e.g., JavaScript"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
           <button 
             type="submit"
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            disabled={isLoading}
+            className="w-full md:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+                     disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Search
+            {isLoading ? 'Searching...' : 'Search Users'}
           </button>
         </div>
       </form>
 
-      {/* Loading State */}
+      {/* Status Messages */}
       {isLoading && (
         <div className="text-center py-4">
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600">Searching for users...</p>
         </div>
       )}
 
-      {/* Error State */}
       {error && (
         <div className="text-center py-4">
-          <p className="text-red-500">Looks like we can't find the user/"Looks like we cant find the user"</p>
+          <p className="text-red-500">{error}</p>
         </div>
       )}
 
-      {/* Success State */}
-      {userData && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex items-center gap-6">
-            <img 
-              src={userData.avatar_url} 
-              alt={userData.login}
-              className="w-24 h-24 rounded-full"
-            />
-            <div>
-              <h3 className="text-xl font-bold">{userData.name || userData.login}</h3>
-              <p className="text-gray-600">@{userData.login}</p>
-              <a 
-                href={userData.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline mt-2 inline-block"
-              >
-                View Profile
-              </a>
+      {/* Results Display */}
+      {userData && userData.users && userData.users.length > 0 && (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {userData.users.map(user => (
+            <div key={user.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-4">
+                <img 
+                  src={user.avatar_url} 
+                  alt={user.login}
+                  className="w-16 h-16 rounded-full"
+                />
+                <div>
+                  <h3 className="font-bold">{user.login}</h3>
+                  <a 
+                    href={user.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline text-sm"
+                  >
+                    View Profile
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-gray-600">Followers</p>
-              <p className="text-xl font-bold">{userData.followers}</p>
-            </div>
-            <div>
-              <p className="text-gray-600">Following</p>
-              <p className="text-xl font-bold">{userData.following}</p>
-            </div>
-          </div>
+          ))}
         </div>
       )}
     </div>
   );
 };
 
-export default GitHubForm;
+export default Search;
+
+
