@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { searchUsers } from '../services/githubService';
+import { searchUsers, fetchUserData } from '../services/githubService';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useState({
@@ -10,6 +10,7 @@ const Search = () => {
     language: ''
   });
   const [userData, setUserData] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,6 +31,20 @@ const Search = () => {
     try {
       const data = await searchUsers(searchParams);
       setUserData(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUserClick = async (username) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const userDetails = await fetchUserData(username);
+      setSelectedUser(userDetails);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -139,7 +154,11 @@ const Search = () => {
       {userData && userData.users && userData.users.length > 0 && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {userData.users.map(user => (
-            <div key={user.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <div 
+              key={user.id} 
+              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => handleUserClick(user.login)}
+            >
               <div className="flex items-center gap-4">
                 <img 
                   src={user.avatar_url} 
@@ -153,6 +172,7 @@ const Search = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:underline text-sm"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     View Profile
                   </a>
@@ -160,6 +180,68 @@ const Search = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Selected User Details Modal */}
+      {selectedUser && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex items-center gap-4">
+                <img 
+                  src={selectedUser.avatar_url} 
+                  alt={selectedUser.login}
+                  className="w-20 h-20 rounded-full"
+                />
+                <div>
+                  <h2 className="text-xl font-bold">{selectedUser.name || selectedUser.login}</h2>
+                  <p className="text-gray-600">@{selectedUser.login}</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSelectedUser(null)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <p className="text-sm text-gray-600">Followers</p>
+                <p className="font-bold">{selectedUser.followers}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Following</p>
+                <p className="font-bold">{selectedUser.following}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Public Repos</p>
+                <p className="font-bold">{selectedUser.public_repos}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Location</p>
+                <p className="font-bold">{selectedUser.location || 'Not specified'}</p>
+              </div>
+            </div>
+            
+            {selectedUser.bio && (
+              <div className="mb-4">
+                <p className="text-sm text-gray-600">Bio</p>
+                <p>{selectedUser.bio}</p>
+              </div>
+            )}
+            
+            <a 
+              href={selectedUser.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Full Profile
+            </a>
+          </div>
         </div>
       )}
     </div>
