@@ -1,7 +1,7 @@
 
 
 import './App.css'
-import Search from './components/search.jsx'
+import Search from './components/Search.jsx'
 
 
 function App() {
